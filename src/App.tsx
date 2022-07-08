@@ -20,13 +20,20 @@ function App() {
     <>
       <h1>{isConnected ? "web3 enabled" : "not connected"}</h1>
 
-      <button onClick={() => connectAsync({ connector: metamask })}>
+      <button
+        onClick={() => {
+          if (isConnected) return;
+          connectAsync({ connector: metamask });
+        }}
+      >
         {connectLoading ? "connecting wallet..." : "Connect Wallet"}
       </button>
 
       <button onClick={() => createGuild()}>
         {createGuildLoading ? "..." : "Create Guild"}
       </button>
+
+      <pre>{JSON.stringify(createGuildData, null, 2)}</pre>
     </>
   );
 }
